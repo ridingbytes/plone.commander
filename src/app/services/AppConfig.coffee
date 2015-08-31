@@ -23,8 +23,8 @@ Ext.define "App.services.AppConfig",
         return JSON.parse fs.readFileSync pth
 
     getDefaultSettings: ->
-        config = @readPackageJSON()
-        return config.settings
+        @config = @readPackageJSON()
+        return @config.settings
 
     loadDefaults: ->
         # load the default values into the local storage if they aren't set

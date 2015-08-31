@@ -1,6 +1,7 @@
 {
   "name": "plone.commander",
   "version": "0.1.0",
+  "repository": "https://github.com/ridingbytes/plone.commander",
   "description": "Cross Platform Application for Plone",
   "license": "MIT",
   "main": "main.js",

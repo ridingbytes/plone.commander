@@ -1,11 +1,3 @@
-###*
-# This class is the main view for the application. It is specified in app.js as the
-# "mainView" property. That setting automatically applies the "viewport"
-# plugin causing this view to become the body element (i.e., the viewport).
-#
-# TODO - Replace this content of this view to suite the needs of your application.
-###
-
 Ext.define 'App.view.main.Main',
     extend: 'Ext.tab.Panel'
     xtype: 'app-main'
@@ -14,6 +6,7 @@ Ext.define 'App.view.main.Main',
         'Ext.plugin.Viewport'
         'Ext.panel.Panel'
         'Ext.window.MessageBox'
+        'Ext.ux.statusbar.StatusBar'
 
         'App.view.main.MainController'
         'App.view.main.MainModel'
@@ -27,6 +20,8 @@ Ext.define 'App.view.main.Main',
 
         "App.view.login.LoginController"
         "App.view.login.Login"
+
+        "App.view.statusbar.StatusBar"
     ]
 
     controller: 'main'
@@ -71,6 +66,12 @@ Ext.define 'App.view.main.Main',
                     iconAlign: 'top'
                     textAlign: 'center'
                     width: 120
+
+    bbar: [
+        xtype: "app-statusbar"
+        width: "100%"
+        border: "1 0 0 0"
+    ]
 
     items: [
         title: 'Search'
