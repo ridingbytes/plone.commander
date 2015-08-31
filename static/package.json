@@ -1,0 +1,21 @@
+{
+  "name": "plone.commander",
+  "version": "0.1.0",
+  "description": "Cross Platform Application for Plone",
+  "license": "MIT",
+  "main": "main.js",
+  "settings": [
+    {
+      "key": "url",
+      "value": "http://localhost:8080/Plone",
+      "description": "Plone Server URL",
+      "type": "string"
+    },
+    {
+      "key": "pagesize",
+      "value": 25,
+      "description": "Number of Items shown in the data table",
+      "type": "int"
+    }
+  ]
+}

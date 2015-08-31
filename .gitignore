@@ -1,0 +1,7 @@
+node_modules
+static/Electron.app
+static/app.js
+static/ext
+static/app/
+static/modern/
+static/classic
