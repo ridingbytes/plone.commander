@@ -1,9 +1,9 @@
-Ext.define  "App.view.explorer.PloneExplorer",
+Ext.define  "App.view.tree.Tree",
     extend: "Ext.tree.Panel"
-    alias:  "widget.plone-explorer"
+    alias:  "widget.tree"
 
     store: "PloneTree"
-    controller: "plone-explorer"
+    controller: "tree"
     rootVisible: no
     useArrows: true
 
@@ -13,13 +13,12 @@ Ext.define  "App.view.explorer.PloneExplorer",
     viewConfig:
         listeners:
             cellclick: (table, td, cellIndex, record, tr, rowIndex, e, eOpts) ->
-                debugger
                 @ownerCt.fireEvent "nodeselect", record
             celldblclick: (table, td, cellIndex, record, tr, rowIndex, e, eOpts) ->
                 @ownerCt.fireEvent "nodeopen", record
 
     initComponent: ->
-        console.debug "*** PloneExplorerView::initComponent"
+        console.debug "*** Tree::initComponent"
 
         Ext.applyIf @,
             columns:

@@ -22,8 +22,8 @@ Ext.define 'App.view.main.Main',
         "App.view.login.LoginController"
         "App.view.login.Login"
 
-        "App.view.explorer.PloneExplorerController"
-        "App.view.explorer.PloneExplorer"
+        "App.view.tree.TreeController"
+        "App.view.tree.Tree"
 
         "App.view.statusbar.StatusBar"
     ]
@@ -81,7 +81,7 @@ Ext.define 'App.view.main.Main',
         title: 'Explorer'
         iconCls: 'fa-sitemap'
         items: [
-            xtype: "plone-explorer"
+            xtype: "tree"
         ]
     ,
         title: 'Search'
