@@ -21,6 +21,11 @@ Ext.define 'App.view.main.List',
         clicksToEdit: 1
     ]
 
+    viewConfig:
+        listeners:
+            cellclick: (table, td, cellIndex, record, tr, rowIndex, e, eOpts) ->
+                debugger
+
     columns: [
         text: 'ID'
         dataIndex: 'id'
