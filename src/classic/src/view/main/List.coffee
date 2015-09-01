@@ -2,12 +2,12 @@ Ext.define 'App.view.main.List',
     extend: 'Ext.grid.Panel'
     xtype: 'mainlist'
 
-    store: "Contents"
+    store: "Search"
     reference: 'contentgrid'
 
     dockedItems: [
         xtype: 'pagingtoolbar'
-        store: 'Contents'
+        store: 'Search'
         dock: 'bottom'
         displayInfo: true
     ]

@@ -6,10 +6,10 @@ Ext.define 'App.view.main.List',
     extend: 'Ext.grid.Grid'
     xtype: 'mainlist'
     requires: [
-        'App.store.Contents'
+        'App.store.Search'
     ]
 
-    store: "Contents"
+    store: "Search"
 
     columns: [
         text: 'ID'

@@ -5,6 +5,7 @@ Ext.define 'App.view.main.Main',
     requires: [
         'Ext.plugin.Viewport'
         'Ext.panel.Panel'
+        'Ext.tree.Panel'
         'Ext.window.MessageBox'
         'Ext.ux.statusbar.StatusBar'
 
@@ -20,6 +21,9 @@ Ext.define 'App.view.main.Main',
 
         "App.view.login.LoginController"
         "App.view.login.Login"
+
+        "App.view.explorer.PloneExplorerController"
+        "App.view.explorer.PloneExplorer"
 
         "App.view.statusbar.StatusBar"
     ]
@@ -74,6 +78,12 @@ Ext.define 'App.view.main.Main',
     ]
 
     items: [
+        title: 'Explorer'
+        iconCls: 'fa-sitemap'
+        items: [
+            xtype: "plone-explorer"
+        ]
+    ,
         title: 'Search'
         iconCls: 'fa-search'
         items: [

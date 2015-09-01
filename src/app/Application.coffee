@@ -5,14 +5,8 @@ Ext.define 'App.Application',
 
     requires: [
         "App.services.AppConfig"
-        "App.services.UserService"
         "App.lib.Proxy"
-        "App.model.Content"
-        "App.model.Document"
-        "App.model.Setting"
-        "App.store.Contents"
-        "App.store.Settings"
-        "App.controller.Main"
+        "App.services.UserService"
     ]
 
     controllers: [
@@ -20,19 +14,28 @@ Ext.define 'App.Application',
     ]
 
     stores: [
-        "Contents"
+        "PloneTree"
+        "Search"
         "Settings"
     ]
 
     models: [
-        "Content"
+        "Collection"
         "Document"
+        "File"
+        "Folder"
+        "Image"
+        "Node"
         "Setting"
         "User"
     ]
 
     launch: ->
         console.debug "°°° App::launch"
+
+        # XXX develop only
+        window.searchstore = Ext.StoreManager.get "Search"
+        window.treestore = Ext.StoreManager.get "PloneTree"
 
     onAppUpdate: ->
         Ext.Msg.confirm 'Application Update', 'This application has an update, reload?', (choice) ->

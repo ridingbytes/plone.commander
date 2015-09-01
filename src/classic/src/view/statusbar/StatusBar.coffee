@@ -24,7 +24,7 @@ Ext.define  "App.view.statusbar.StatusBar",
             "-"
         ,
             xtype: "component"
-            tpl: "APP v{version}" # - build {build} date {date}"
+            tpl: "APP v{version}"
             cls: "x-toolbar-text"
             data:
                 version: AppConfig.config.version

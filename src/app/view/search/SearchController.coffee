@@ -4,7 +4,7 @@ Ext.define 'App.view.search.SearchController',
 
     init: (view) ->
         console.debug "*** SearchViewController::init"
-        @store = Ext.StoreManager.get "Contents"
+        @store = Ext.StoreManager.get "Search"
 
     onKeyUp: (field, e) ->
         console.debug "°°° SearchViewController::onKeyUp: #{e}"

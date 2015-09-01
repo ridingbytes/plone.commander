@@ -14,14 +14,15 @@ Ext.define  "App.lib.Proxy",
     simpleSortMode: yes
 
     startParam: "b_start"
-    extraParams:
-        complete: yes
+    #extraParams:
+        #complete: yes
 
     actionMethods:
         read   : 'GET'
         create : 'POST'
         update : 'POST'
         destroy: 'POST'
+
 
     buildRequest: (operation) ->
         request = @callParent arguments
@@ -35,3 +36,4 @@ Ext.define  "App.lib.Proxy",
         rootProperty: "items"
         totalProperty: "count"
         messageProperty: "message"
+        typeProperty: "portal_type"
