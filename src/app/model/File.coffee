@@ -8,5 +8,3 @@ Ext.define  "App.model.File",
             create  : "#{AppConfig.plone_api_url}/files/create"
             update  : "#{AppConfig.plone_api_url}/files/update"
             destroy : "#{AppConfig.plone_api_url}/files/delete"
-
-

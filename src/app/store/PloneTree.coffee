@@ -3,4 +3,5 @@ Ext.define  "App.store.PloneTree",
     model:  "App.model.Node"
 
     autoLoad: yes
+    autoSync: yes
     defaultRootId: "Plone"

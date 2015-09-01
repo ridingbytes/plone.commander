@@ -16,14 +16,14 @@ Ext.define 'App.view.main.Main',
         'App.view.search.SearchController'
         'App.view.search.Search'
 
+        "App.view.tree.TreeController"
+        "App.view.tree.Tree"
+
         'App.view.settings.SettingsController'
         'App.view.settings.Settings'
 
         "App.view.login.LoginController"
         "App.view.login.Login"
-
-        "App.view.tree.TreeController"
-        "App.view.tree.Tree"
 
         "App.view.statusbar.StatusBar"
     ]
