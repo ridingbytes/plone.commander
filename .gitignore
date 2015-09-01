@@ -5,3 +5,10 @@ static/ext
 static/app/
 static/modern/
 static/classic
+static/develop
+static/modern.json
+static/classic.json
+static/bootstrap.css
+static/bootstrap.js
+static/build
+static/sass
