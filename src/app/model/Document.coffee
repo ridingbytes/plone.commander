@@ -1,5 +1,5 @@
 Ext.define  "App.model.Document",
-    extend: "App.model.Content"
+    extend: "App.model.Node"
 
     fields: [
         name: "text"

@@ -1,11 +1,12 @@
-###* Base Model
- *
- * Super class for models
+### * Plone Content Node
 ###
-Ext.define  "App.model.Content",
-    extend: "Ext.data.Model"
+Ext.define  "App.model.Node",
+    extend: "Ext.data.TreeModel"
 
     idProperty: "uid"
+
+    schema :
+        namespace : 'App.model'
 
     fields: [
         name: "url"
@@ -49,12 +50,14 @@ Ext.define  "App.model.Content",
     ,
         name: "parent_url"
         type: "string"
+    ,
+        name: 'immediatelyAddableTypes'
+        type: 'auto'
     ]
 
-    # ########################################################################
-    # GETTER
-    # ########################################################################
 
+    ### * Methods
+    ###
     getUID: ->
         return @get "uid"
 
@@ -74,10 +77,30 @@ Ext.define  "App.model.Content",
         return @get "path"
 
 
+    ### * Node specific
+    ###
+    isFolder: ->
+        return @get("portal_type") is "Folder"
+
+    isLeaf: ->
+        if @isRoot() then return no
+        if @isFolder() then return no
+        if @get("immediatelyAddableTypes") then return no
+        @set "leaf", yes
+        return yes
+
+
+    ### * Proxy Configuration
+    ###
     proxy:
         type: "ploneproxy"
+        extraParams:
+            children: yes
+        reader:
+            rootProperty: "children"
+            typeProperty: "portal_type"
         api:
-            read    : "#{AppConfig.plone_api_url}/search"
+            read    : "#{AppConfig.plone_api_url}/get"
             create  : "#{AppConfig.plone_api_url}/create"
             update  : "#{AppConfig.plone_api_url}/update"
             destroy : "#{AppConfig.plone_api_url}/delete"
