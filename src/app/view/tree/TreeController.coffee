@@ -86,13 +86,17 @@ Ext.define "App.view.tree.TreeController",
             method: "GET"
             callback: (options, success, response) ->
                 console.debug "pasted..."
+                @refresh record
 
     refresh: (record) ->
         store = record.getTreeStore()
-        node = store.getNodeById record.id
-        if node
-            store.load node:node
-            console.debug "*node refreshed*"
+
+        # refresh the node
+        store.load
+            node: record.parentNode
+            callback: (loadedNodes, operation, success) ->
+                console.debug "*node refreshed*"
+                record.expand()
 
     viewInPlone: (record) ->
         url = record.data.url

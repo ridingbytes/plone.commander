@@ -3,13 +3,14 @@ Ext.define "App.view.login.Login",
     extend: "Ext.form.Panel"
     alias:  "widget.login"
 
-    title: "Authenticate"
+    title: "Plone Login"
     bodyPadding: "10 0"
 
     controller: "login"
 
-    defaults:
-        anchor: "100%"
+    layout:
+        type: "vbox"
+        align: "center"
 
     items: [
         xtype: "textfield"

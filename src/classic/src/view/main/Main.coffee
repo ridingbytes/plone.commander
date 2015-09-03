@@ -113,14 +113,6 @@ Ext.define 'App.view.main.Main',
         title: 'Login'
         iconCls: 'fa-users'
         items: [
-            xtype: "panel"
-            layout:
-                type: "vbox"
-                align: "center"
-            items: [
-                width: 400
-                margin: "50% auto"
-                xtype: 'login'
-            ]
+            xtype: 'login'
         ]
     ]
