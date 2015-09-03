@@ -113,9 +113,10 @@ Ext.define "App.view.tree.TreeController",
             buttons: Ext.MessageBox.YESNO
             fn: (btn) ->
                 if btn is "yes"
-                    #store = record.getTreeStore()
+                    # avoid delete requests for contained childnodes,
+                    # since these contained items are deleted by Plone anyway
+                    record.childNodes = []
                     record.remove()
-                    #store.reload()
 
             icon: Ext.MessageBox.QUESTION
             scope: @
