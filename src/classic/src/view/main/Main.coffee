@@ -84,18 +84,26 @@ Ext.define 'App.view.main.Main',
     items: [
         title: 'Explorer'
         iconCls: 'fa-sitemap'
+        layout:
+            type: "vbox"
+            align: "stretch"
         items: [
             reference: 'tree'
             xtype: "tree"
+            flex: 1
         ]
     ,
         title: 'Search'
         iconCls: 'fa-search'
+        layout:
+            type: "vbox"
+            align: "stretch"
         items: [
             xtype: 'searchwidget'
         ,
             reference: 'mainlist'
             xtype: 'mainlist'
+            flex: 1
         ]
     ,
         title: 'Settings'

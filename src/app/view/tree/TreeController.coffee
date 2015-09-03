@@ -6,10 +6,12 @@ Ext.define "App.view.tree.TreeController",
         console.debug "*** TreeController::init"
 
         # custom events fired by the tree panel
-        view.on "nodeopen", @onOpen
-        view.on "nodeselect", @onSelect
+        view.on "nodeopen", @onOpen, @
+        view.on "nodeselect", @onSelect, @
         view.on "itemcontextmenu", @onItemContextMenu, @
         view.on "beforeedit", @onBeforeEdit, @
+
+        view.store.on "write", @onWrite, @
 
         @menu = Ext.create "Ext.menu.Menu",
             items: [
@@ -54,6 +56,9 @@ Ext.define "App.view.tree.TreeController",
     ### * Methods
     ###
 
+    onWrite: (store, operation, eOpts) ->
+        console.debug "°°° TreeController::onWrite: sync ..."
+
     getSelectedRecords: ->
         return @view.getSelectionModel().getSelection()
 
@@ -80,8 +85,6 @@ Ext.define "App.view.tree.TreeController",
             method: "GET"
             callback: (options, success, response) ->
                 console.debug "pasted..."
-                store = record.getTreeStore()
-                @refresh store.getRoot()
 
     refresh: (record) ->
         store = record.getTreeStore()
@@ -109,7 +112,10 @@ Ext.define "App.view.tree.TreeController",
             buttons: Ext.MessageBox.YESNO
             fn: (btn) ->
                 if btn is "yes"
+                    #store = record.getTreeStore()
                     record.remove()
+                    #store.reload()
+
             icon: Ext.MessageBox.QUESTION
             scope: @
 
@@ -119,13 +125,14 @@ Ext.define "App.view.tree.TreeController",
 
     onOpen: (record) ->
         console.debug "°°° TreeController::onOpen: #{record.get 'id'}"
-        console.debug "portal_type=#{record.get 'portal_type'}"
-        console.debug "class=#{record.$className}"
+        #console.debug "portal_type=#{record.get 'portal_type'}"
+        #console.debug "class=#{record.$className}"
 
     onSelect: (record) ->
         console.debug "°°° TreeController::onSelect: #{record.get 'id'}"
-        console.debug "portal_type=#{record.get 'portal_type'}"
-        console.debug "class=#{record.$className}"
+        #console.debug "portal_type=#{record.get 'portal_type'}"
+        #console.debug "class=#{record.$className}"
+        window.current = record
 
     onItemContextMenu: (view, record, item, index, event) ->
         console.debug "°°° TreeController::onItemContextMenu: #{record.get 'id'}"
@@ -135,9 +142,19 @@ Ext.define "App.view.tree.TreeController",
 
     onBeforeEdit: (editor, e, eOpts) ->
         console.debug "°°° TreeController::onBeforeEdit"
+
+        # not editable for anonymous users
+        return no if UserService.isAnonymous()
+
         record = e.record
         if record.isRoot()
             return no
+
+        if e.field == "transition"
+            combo = e.column.getEditor()
+            record = e.record
+            combo.store.loadData record.getTransitions()
+
 
     onCut: (btn, evt, eOpts)  ->
         console.debug "°°° TreeController::onCut"

@@ -11,45 +11,51 @@ Ext.define 'App.view.main.MainController',
         mainlist:
             beforeedit: "onBeforeEdit"
 
-    ###** Getter
+    ###** Methods
     ###
 
     getGrid: ->
         grid = @lookupReference "mainlist"
         return grid
 
-    getTree: ->
+    getTreePanel: ->
         tree = @lookupReference "tree"
         return tree
 
-    ###** Even Handler
+    getTreeStore: ->
+        return Ext.StoreManager.get "PloneTree"
+
+    reloadTree: ->
+        # reload the tree panel
+        panel = @getTreePanel()
+        store = @getTreeStore()
+        store.load node:panel.getRootNode()
+        console.debug "Reloaded Tree Panel"
+
+    reloadGrid: ->
+        # reload the grid panel
+        grid = @getGrid()
+        grid.store.reload()
+        console.debug "Reloaded Grid Panel"
+
+    ###** Event Handler
     ###
 
     onUserChange: (user) ->
         console.debug "°°° MainViewController::onUserChange: user=", user
 
-        # reload the grid
-        grid = @getGrid()
-        grid.store.reload()
-        console.debug ">>> Reloaded the grid store"
+        @reloadGrid()
 
-        # reload the tree
-        tree = @getTree()
-        tree.store.load node: tree.store.getRoot()
-        console.debug ">>> Reloaded the tree store"
+        @reloadTree()
 
         # set the header
         vm = @getViewModel()
         vm.set "username", user.get "username"
         vm.set "authenticated", user.get "authenticated"
         console.debug ">>> Set data in MainModel"
-        window.vm = vm
 
     onBeforeEdit: (editor, e, eOpts) ->
         console.log "°°° MainViewController::onBeforeEdit: Row #{e.rowIdx} will be edited"
-        model = e.record
-        user = UserService.get_user()
 
-        if not user then return no
-        if not user.get "authenticated" then return no
-        #if "Manager" not in user.get "roles" then return no
+        # not editable for anonymous users
+        return no if UserService.isAnonymous()

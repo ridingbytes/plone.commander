@@ -73,3 +73,14 @@ Ext.define "App.services.UserService",
     getUserById: (userid) ->
         store = @get_user_store()
         return store.getById userid
+
+    isAuthenticated: ->
+        user = @get_user()
+        if not user
+            return no
+        if not user.get "authenticated"
+            return no
+        return yes
+
+    isAnonymous: ->
+        return not @isAuthenticated()

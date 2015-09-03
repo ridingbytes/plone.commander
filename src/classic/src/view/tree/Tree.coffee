@@ -8,6 +8,9 @@ Ext.define  "App.view.tree.Tree",
     useArrows: yes
     animate: no
 
+    layout:
+        type: "fit"
+
     selModel:
         mode: "SINGLE"
 
@@ -15,10 +18,6 @@ Ext.define  "App.view.tree.Tree",
     plugins: [
         ptype: "cellediting"
         clicksToEdit: 1
-    #,
-        #ptype: 'bufferedrenderer'
-        #trailingBufferZone: 30
-        #leadingBufferZone: 50
     ]
 
     viewConfig:
@@ -28,8 +27,26 @@ Ext.define  "App.view.tree.Tree",
             celldblclick: (table, td, cellIndex, record, tr, rowIndex, e, eOpts) ->
                 @ownerCt.fireEvent "nodeopen", record
 
+
     initComponent: ->
         console.debug "*** Tree::initComponent"
+
+        @dockedItems = [
+            xtype: 'toolbar'
+            dock:  'top'
+
+            items: [
+                text: 'Expand All'
+                handler: ->
+                    @expandAll()
+                scope: @
+            ,
+                text: 'Collapse All'
+                handler: ->
+                    @collapseAll()
+                scope: @
+            ]
+        ]
 
         Ext.applyIf @,
             columns:
@@ -63,8 +80,37 @@ Ext.define  "App.view.tree.Tree",
                     editor:
                         xtype: 'textfield'
                 ,
-                    text: 'State'
-                    dataIndex: 'state'
+                    text: "Status"
+                    tooltip: "Click on a cell to change the current status"
+                    dataIndex: 'transition'
+                    getSortParam: ->
+                        return "state"
+                    renderer: (value, meta, record, rowIndex, colIndex, store, view) ->
+                        status = record.data.state
+                        if not status? then return
+                        if UserService.isAnonymous() then return status
+                        meta.tdAttr = 'data-qtip="Click to change the status"'
+                        return """
+                          <span class="fa fa-pencil"></span>
+                          &nbsp;
+                          #{status}
+                        """
+                    editor:
+                        xtype: 'combo'
+                        displayField: "value"
+                        valueField: "value"
+                        queryMode: "local"
+                        typeAhead: yes
+                        editable: yes
+                        forceSelection: yes
+                        store: Ext.create "Ext.data.Store",
+                            fields: ["value", "value"]
+                            data: []
+                        listeners:
+                            select: (combo, records, eOpts) ->
+                                console.debug "Do Transition #{combo.getValue()}"
+                                col = @up()
+                                col.editingPlugin.completeEdit()
                 ]
 
         @callParent arguments

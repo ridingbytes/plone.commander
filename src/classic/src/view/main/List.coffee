@@ -25,7 +25,8 @@ Ext.define 'App.view.main.List',
         text: 'ID'
         dataIndex: 'id'
         flex: 1
-        hidden: yes
+        editor:
+            xtype: 'textfield'
     ,
         text: 'Title'
         dataIndex: 'title'

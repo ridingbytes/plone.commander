@@ -53,6 +53,11 @@ Ext.define  "App.model.Node",
     ,
         name: 'immediatelyAddableTypes'
         type: 'auto'
+    ,
+        name: "transition"
+        type: "string"
+    ,
+        name: "workflow_info"
     ]
 
 
@@ -75,6 +80,11 @@ Ext.define  "App.model.Node",
 
     getPath: ->
         return @get "path"
+
+    getTransitions: ->
+        wf = @get "workflow_info"
+        console.debug "Get Workflow Transitions for #{@get 'title'}"
+        return wf.transitions
 
 
     ### * Node specific
