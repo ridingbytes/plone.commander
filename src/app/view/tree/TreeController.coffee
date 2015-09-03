@@ -9,9 +9,30 @@ Ext.define "App.view.tree.TreeController",
         view.on "nodeopen", @onOpen
         view.on "nodeselect", @onSelect
         view.on "itemcontextmenu", @onItemContextMenu, @
+        view.on "beforeedit", @onBeforeEdit, @
 
         @menu = Ext.create "Ext.menu.Menu",
             items: [
+                text: 'Refresh'
+                iconCls: 'fa fa-refresh'
+                handler: @onRefresh
+                scope: @
+            ,
+                text: 'View'
+                iconCls: 'fa fa-eye'
+                handler: @onView
+                scope: @
+            ,
+                text: 'New Folder'
+                iconCls: 'fa fa-folder'
+                handler: @onNewFolder
+                scope: @
+            ,
+                text: 'Cut'
+                iconCls: 'fa fa-scissors'
+                handler: @onCut
+                scope: @
+            ,
                 text: 'Copy'
                 iconCls: 'fa fa-files-o'
                 handler: @onCopy
@@ -33,6 +54,17 @@ Ext.define "App.view.tree.TreeController",
     ### * Methods
     ###
 
+    getSelectedRecords: ->
+        return @view.getSelectionModel().getSelection()
+
+    cut: (record) ->
+        Ext.Ajax.request
+            url: "#{AppConfig.plone_api_url}/cut/#{record.get 'uid'}"
+            scope: @
+            method: "GET"
+            callback: (options, success, response) ->
+                console.debug "cutted..."
+
     copy: (record) ->
         Ext.Ajax.request
             url: "#{AppConfig.plone_api_url}/copy/#{record.get 'uid'}"
@@ -49,22 +81,35 @@ Ext.define "App.view.tree.TreeController",
             callback: (options, success, response) ->
                 console.debug "pasted..."
                 store = record.getTreeStore()
-                store.reload()
+                @refresh store.getRoot()
 
-    getSelectedRecords: ->
-        return @view.getSelectionModel().getSelection()
+    refresh: (record) ->
+        store = record.getTreeStore()
+        node = store.getNodeById record.id
+        if node
+            store.load node:node
+            console.debug "*node refreshed*"
 
-    confirmAndDelete: (record) ->
+    viewInPlone: (record) ->
+        url = record.data.url
+        window.open url
 
+    newFolder: (record) ->
+        folder = Ext.create "App.model.Folder",
+            id: "New Folder"
+            parent_uid: record.get "uid"
+        folder.save
+            success: (rec, operation) ->
+                record.appendChild rec
+
+    delete: (record) ->
         Ext.MessageBox.show
             title: "Confirm Delete"
             msg: "Are you sure you want to delete #{record.get('title')}?"
             buttons: Ext.MessageBox.YESNO
             fn: (btn) ->
                 if btn is "yes"
-                    store = record.getTreeStore()
                     record.remove()
-                    store.sync()
             icon: Ext.MessageBox.QUESTION
             scope: @
 
@@ -88,6 +133,19 @@ Ext.define "App.view.tree.TreeController",
         @menu.showAt(event.getXY())
         event.stopEvent()
 
+    onBeforeEdit: (editor, e, eOpts) ->
+        console.debug "°°° TreeController::onBeforeEdit"
+        record = e.record
+        if record.isRoot()
+            return no
+
+    onCut: (btn, evt, eOpts)  ->
+        console.debug "°°° TreeController::onCut"
+
+        for rec in @getSelectedRecords()
+            return no if rec.isRoot()
+            @cut rec
+
     onCopy: (btn, evt, eOpts)  ->
         console.debug "°°° TreeController::onCopy"
 
@@ -99,12 +157,33 @@ Ext.define "App.view.tree.TreeController",
         console.debug "°°° TreeController::onPaste"
 
         for rec in @getSelectedRecords()
-            return no if rec.isRoot()
+            #return no if rec.isRoot()
             @paste rec
+
+    onRefresh: (btn, evt, eOpts)  ->
+        console.debug "°°° TreeController::onRefresh"
+
+        for rec in @getSelectedRecords()
+            console.debug "Refreshing node index #{rec.data.index}"
+            @refresh rec
+
+    onView: (btn, evt, eOpts)  ->
+        console.debug "°°° TreeController::onView"
+
+        for rec in @getSelectedRecords()
+            @viewInPlone rec
+
+    onNewFolder: (btn, evt, eOpts)  ->
+        console.debug "°°° TreeController::onNewFolder"
+
+        for rec in @getSelectedRecords()
+            @newFolder rec
 
     onDelete: (btn, evt, eOpts)  ->
         console.debug "°°° TreeController::onDelete"
 
         for rec in @getSelectedRecords()
-            return no if rec.isRoot()
-            @confirmAndDelete rec
+            if rec.isRoot()
+                console.warn "Can not delete root node"
+                return no
+            @delete rec

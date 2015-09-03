@@ -18,6 +18,10 @@ Ext.define 'App.view.main.MainController',
         grid = @lookupReference "mainlist"
         return grid
 
+    getTree: ->
+        tree = @lookupReference "tree"
+        return tree
+
     ###** Even Handler
     ###
 
@@ -27,7 +31,12 @@ Ext.define 'App.view.main.MainController',
         # reload the grid
         grid = @getGrid()
         grid.store.reload()
-        console.debug ">>> Reload the grid store"
+        console.debug ">>> Reloaded the grid store"
+
+        # reload the tree
+        tree = @getTree()
+        tree.store.load node: tree.store.getRoot()
+        console.debug ">>> Reloaded the tree store"
 
         # set the header
         vm = @getViewModel()
@@ -44,4 +53,3 @@ Ext.define 'App.view.main.MainController',
         if not user then return no
         if not user.get "authenticated" then return no
         #if "Manager" not in user.get "roles" then return no
-

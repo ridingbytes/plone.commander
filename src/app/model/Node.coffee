@@ -82,11 +82,15 @@ Ext.define  "App.model.Node",
     isFolder: ->
         return @get("portal_type") is "Folder"
 
+    isPortal: ->
+        return @get("portal_type") is "Plone Site"
+
     isLeaf: ->
         if @isRoot() then return no
+        if @isPortal() then return no
         if @isFolder() then return no
         if @get("immediatelyAddableTypes") then return no
-        @set "leaf", yes
+        @data.leaf = yes
         return yes
 
 

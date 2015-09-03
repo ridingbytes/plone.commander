@@ -4,8 +4,9 @@ Ext.define  "App.view.tree.Tree",
 
     store: "PloneTree"
     controller: "tree"
-    rootVisible: no
-    useArrows: true
+    rootVisible: yes
+    useArrows: yes
+    animate: no
 
     selModel:
         mode: "SINGLE"
@@ -14,6 +15,10 @@ Ext.define  "App.view.tree.Tree",
     plugins: [
         ptype: "cellediting"
         clicksToEdit: 1
+    #,
+        #ptype: 'bufferedrenderer'
+        #trailingBufferZone: 30
+        #leadingBufferZone: 50
     ]
 
     viewConfig:

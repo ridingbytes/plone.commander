@@ -533,15 +533,14 @@
             "sass": {
                 // "save": "classic/sass/save.json"
             }
-        },
-
-        "modern": {
-            "toolkit": "modern",
-            "theme": "theme-neptune",
-            "sass": {
-                // "save": "modern/sass/save.json"
-            }
         }
+        // , "modern": {
+        //     "toolkit": "modern",
+        //     "theme": "theme-neptune",
+        //     "sass": {
+        //         // "save": "modern/sass/save.json"
+        //     }
+        // }
     },
 
 

@@ -28,6 +28,7 @@ Ext.define 'App.Application',
         "Node"
         "Setting"
         "User"
+        "PloneSite"
     ]
 
     launch: ->

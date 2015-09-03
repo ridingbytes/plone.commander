@@ -14,8 +14,6 @@ Ext.define  "App.lib.Proxy",
     simpleSortMode: yes
 
     startParam: "b_start"
-    #extraParams:
-        #complete: yes
 
     actionMethods:
         read   : 'GET'
@@ -33,7 +31,13 @@ Ext.define  "App.lib.Proxy",
 
     reader:
         type: "json"
-        rootProperty: "items"
+        rootProperty: (data) ->
+            return data.items or data.children
         totalProperty: "count"
         messageProperty: "message"
         typeProperty: "portal_type"
+        #typeProperty: (data) ->
+            #type = data.portal_type
+            #if type is "Plone Site"
+                #type = "PloneSite"
+            #return type

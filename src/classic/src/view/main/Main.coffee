@@ -52,7 +52,8 @@ Ext.define 'App.view.main.Main',
         flex: 1
         layout:
             align: 'stretch'
-            overflowHandler: 'none'
+            # display scroller for the tab menu if the window size is too small
+            overflowHandler: 'scroller'
 
     responsiveConfig:
         tall: headerPosition: 'top'
@@ -71,6 +72,9 @@ Ext.define 'App.view.main.Main',
                     textAlign: 'center'
                     width: 120
 
+    config:
+        fullscreen: yes
+
     bbar: [
         xtype: "app-statusbar"
         width: "100%"
@@ -81,6 +85,7 @@ Ext.define 'App.view.main.Main',
         title: 'Explorer'
         iconCls: 'fa-sitemap'
         items: [
+            reference: 'tree'
             xtype: "tree"
         ]
     ,
