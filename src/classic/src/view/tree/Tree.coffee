@@ -30,6 +30,7 @@ Ext.define  "App.view.tree.Tree",
 
     initComponent: ->
         console.debug "*** Tree::initComponent"
+        window.treepanel = @
 
         @tools = [
             type: 'refresh'
@@ -92,7 +93,7 @@ Ext.define  "App.view.tree.Tree",
                         status = record.data.state
                         if not status? then return
                         if UserService.isAnonymous() then return status
-                        meta.tdAttr = 'data-qtip="Click to change the status"'
+                        #meta.tdAttr = 'data-qtip="Click to change the status"'
                         return """
                           <span class="fa fa-pencil"></span>
                           &nbsp;

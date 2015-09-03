@@ -59,6 +59,11 @@ Ext.define "App.view.tree.TreeController",
 
     onWrite: (store, operation, eOpts) ->
         console.debug "°°° TreeController::onWrite: sync ..."
+        if operation.action is "destroy"
+            return
+        for record in operation.getRecords()
+            console.debug "Refreshing node #{record.data.id}"
+            @refresh record
 
     getSelectedRecords: ->
         return @view.getSelectionModel().getSelection()
@@ -89,14 +94,20 @@ Ext.define "App.view.tree.TreeController",
                 @refresh record
 
     refresh: (record) ->
-        store = record.getTreeStore()
+        store = @view.store
+
+        parent = record.parentNode
+        if parent is null
+            parent = record
 
         # refresh the node
         store.load
-            node: record.parentNode
+            node: parent
             callback: (loadedNodes, operation, success) ->
                 console.debug "*node refreshed*"
-                record.expand()
+                parent.expand()
+                #for node in loadedNodes
+                    #node.expand()
 
     viewInPlone: (record) ->
         url = record.data.url
@@ -153,9 +164,12 @@ Ext.define "App.view.tree.TreeController",
         return no if UserService.isAnonymous()
 
         record = e.record
+
+        # root is read only
         if record.isRoot()
             return no
 
+        # inject transitions for this specific record
         if e.field == "transition"
             combo = e.column.getEditor()
             record = e.record
