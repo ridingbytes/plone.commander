@@ -5,7 +5,7 @@ Ext.define  "App.view.settings.Settings",
     store:  "Settings"
     controller: "settings"
 
-    title: "Global Application Settings"
+    title: "Application Settings"
     emptyText: "No Settings"
     bodyPadding: "10 0"
 

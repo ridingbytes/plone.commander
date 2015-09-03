@@ -4,12 +4,12 @@ Ext.define  "App.view.tree.Tree",
 
     store: "PloneTree"
     controller: "tree"
-    rootVisible: yes
     useArrows: yes
     animate: no
+    title: "Plone Explorer"
 
-    layout:
-        type: "fit"
+    stateId: "plone-tree-grid"
+    stateful: yes
 
     selModel:
         mode: "SINGLE"
@@ -31,21 +31,24 @@ Ext.define  "App.view.tree.Tree",
     initComponent: ->
         console.debug "*** Tree::initComponent"
 
-        @dockedItems = [
-            xtype: 'toolbar'
-            dock:  'top'
-
-            items: [
-                text: 'Expand All'
-                handler: ->
-                    @expandAll()
-                scope: @
-            ,
-                text: 'Collapse All'
-                handler: ->
-                    @collapseAll()
-                scope: @
-            ]
+        @tools = [
+            type: 'refresh'
+            tooltip: 'Refresh'
+            callback: (panel) ->
+                console.debug "REFRESH"
+                panel.store.reload()
+        ,
+            type: 'plus'
+            tooltip: 'Expand'
+            callback: (panel) ->
+                console.debug "EXPAND"
+                panel.expandAll()
+        ,
+            type: 'minus'
+            tooltip: 'Collapse'
+            callback: (panel) ->
+                console.debug "COLLAPSE"
+                panel.collapseAll()
         ]
 
         Ext.applyIf @,

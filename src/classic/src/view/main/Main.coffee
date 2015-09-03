@@ -99,8 +99,6 @@ Ext.define 'App.view.main.Main',
             type: "vbox"
             align: "stretch"
         items: [
-            xtype: 'searchwidget'
-        ,
             reference: 'mainlist'
             xtype: 'mainlist'
             flex: 1

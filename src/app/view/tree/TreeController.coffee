@@ -5,21 +5,22 @@ Ext.define "App.view.tree.TreeController",
     init: (view) ->
         console.debug "*** TreeController::init"
 
-        # custom events fired by the tree panel
+        # view events
         view.on "nodeopen", @onOpen, @
         view.on "nodeselect", @onSelect, @
         view.on "itemcontextmenu", @onItemContextMenu, @
         view.on "beforeedit", @onBeforeEdit, @
 
+        # store events
         view.store.on "write", @onWrite, @
 
         @menu = Ext.create "Ext.menu.Menu",
             items: [
-                text: 'Refresh'
-                iconCls: 'fa fa-refresh'
-                handler: @onRefresh
-                scope: @
-            ,
+                #text: 'Refresh'
+                #iconCls: 'fa fa-refresh'
+                #handler: @onRefresh
+                #scope: @
+            #,
                 text: 'View'
                 iconCls: 'fa fa-eye'
                 handler: @onView

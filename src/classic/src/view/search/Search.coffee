@@ -22,6 +22,7 @@ Ext.define 'App.view.search.Search',
         anchor: '100%'
         listeners:
             keyup: 'onKeyUp'
+            buffer: 250
     ,
         xtype: 'button'
         text:  'Clear'
