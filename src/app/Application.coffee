@@ -7,6 +7,25 @@ Ext.define 'App.Application',
         "App.services.AppConfig"
         "App.lib.Proxy"
         "App.services.UserService"
+
+        "App.model.*"
+        "App.store.*"
+        "App.controller.*"
+        "App.view.*"
+
+        "App.controller.Main"
+        "App.store.PloneTree"
+        "App.store.Search"
+        "App.store.Settings"
+        "App.model.Collection"
+        "App.model.Document"
+        "App.model.File"
+        "App.model.Folder"
+        "App.model.Image"
+        "App.model.Node"
+        "App.model.Setting"
+        "App.model.User"
+        "App.model.PloneSite"
     ]
 
     controllers: [

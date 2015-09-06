@@ -6,11 +6,22 @@ Plone Commander
 It communicates with Plone_ through `plone.jsonapi.routes`.
 
 
-
 Prerequisites
 =============
 
-- Download the lates version of Electron_ to the `static` directory.
+- Download the latest version of Electron_ to the `static` directory.
+
+
+Build for your OS
+=================
+
+1. Download the latest version of Electron_ for your operating system.
+
+2. Download the latest version of the `Plone Commander`_ app
+
+3. Extract the `Plone Commander`_ App into the resources directory of Electron_
+
+4. Start the application
 
 
 Development
@@ -29,5 +40,6 @@ Build::
 .. Links
 
 .. _Electron: http://electron.atom.io/
+.. _Plone Commander: https://github.com/ridingbytes/plone.commander/releases
 .. _ExtJS: https://www.sencha.com/products/extjs/
 .. _Plone: http://www.plone.org
