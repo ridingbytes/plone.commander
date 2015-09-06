@@ -8,6 +8,7 @@ Ext.define 'App.view.main.Main',
         'Ext.tree.Panel'
         'Ext.window.MessageBox'
         'Ext.ux.statusbar.StatusBar'
+        'Ext.Promise'
 
         'App.view.main.MainController'
         'App.view.main.MainModel'
@@ -34,6 +35,13 @@ Ext.define 'App.view.main.Main',
     tabBarHeaderPosition: 1
     titleRotation: 0
     tabRotation: 0
+
+    initComponent: ->
+        console.debug "*** Main::initComponent"
+        window.tabpanel = @
+        @callParent arguments
+
+
     header:
         layout:
             align: 'stretchmax'
@@ -82,17 +90,6 @@ Ext.define 'App.view.main.Main',
     ]
 
     items: [
-        title: 'Explorer'
-        iconCls: 'fa-sitemap'
-        layout:
-            type: "vbox"
-            align: "stretch"
-        items: [
-            reference: 'tree'
-            xtype: "tree"
-            flex: 1
-        ]
-    ,
         title: 'Search'
         iconCls: 'fa-search'
         layout:
@@ -101,6 +98,18 @@ Ext.define 'App.view.main.Main',
         items: [
             reference: 'mainlist'
             xtype: 'mainlist'
+            flex: 1
+        ]
+    ,
+        title: 'Explorer'
+        iconCls: 'fa-sitemap'
+        itemId: 'explorer'
+        layout:
+            type: "vbox"
+            align: "stretch"
+        items: [
+            reference: 'tree'
+            xtype: "tree"
             flex: 1
         ]
     ,

@@ -27,7 +27,6 @@ Ext.define  "App.view.tree.Tree",
             celldblclick: (table, td, cellIndex, record, tr, rowIndex, e, eOpts) ->
                 @ownerCt.fireEvent "nodeopen", record
 
-
     initComponent: ->
         console.debug "*** Tree::initComponent"
         window.treepanel = @

@@ -5,6 +5,8 @@ Ext.define "App.view.tree.TreeController",
     init: (view) ->
         console.debug "*** TreeController::init"
 
+        window.treecontroller = @
+
         # view events
         view.on "nodeopen", @onOpen, @
         view.on "nodeselect", @onSelect, @
@@ -53,20 +55,21 @@ Ext.define "App.view.tree.TreeController",
                 scope: @
             ]
 
-
     ### * Methods
     ###
 
-    onWrite: (store, operation, eOpts) ->
-        console.debug "°°° TreeController::onWrite: sync ..."
-        if operation.action is "destroy"
-            return
-        for record in operation.getRecords()
-            console.debug "Refreshing node #{record.data.id}"
-            @refresh record
+    expandNode: (record) ->
+        # Expand the given record by the physical path
+        path = record.getPath()
+        @view.expandPath path,
+            field: "id"
+            select: yes
 
     getSelectedRecords: ->
         return @view.getSelectionModel().getSelection()
+
+    getRootNode: ->
+        return @view.getRootNode()
 
     cut: (record) ->
         Ext.Ajax.request
@@ -136,9 +139,16 @@ Ext.define "App.view.tree.TreeController",
             icon: Ext.MessageBox.QUESTION
             scope: @
 
-
     ### * Event handlers
     ###
+
+    onWrite: (store, operation, eOpts) ->
+        console.debug "°°° TreeController::onWrite: sync ..."
+        if operation.action is "destroy"
+            return
+        for record in operation.getRecords()
+            console.debug "Refreshing node #{record.data.id}"
+            @refresh record
 
     onOpen: (record) ->
         console.debug "°°° TreeController::onOpen: #{record.get 'id'}"
@@ -173,7 +183,9 @@ Ext.define "App.view.tree.TreeController",
         if e.field == "transition"
             combo = e.column.getEditor()
             record = e.record
-            combo.store.loadData record.getTransitions()
+            transitions = record.getTransitions()
+            return no unless transitions
+            combo.store.loadData transitions
 
 
     onCut: (btn, evt, eOpts)  ->

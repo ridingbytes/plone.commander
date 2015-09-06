@@ -2,12 +2,10 @@ Ext.define 'App.view.search.Search',
     extend: 'Ext.panel.Panel'
     xtype: 'searchwidget'
 
+    bodyPadding: 10
+    controller: "searchcontroller"
     layout:
         type: 'hbox'
-
-    bodyPadding: 10
-
-    controller: 'searchcontroller'
 
     initComponent: ->
         console.debug '*** SearchWidget::initComponent'

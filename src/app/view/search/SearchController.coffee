@@ -6,8 +6,11 @@ Ext.define 'App.view.search.SearchController',
         console.debug "*** SearchViewController::init"
         @store = Ext.StoreManager.get "Search"
 
+    ### * Event handlers
+    ###
+
     onKeyUp: (field, e) ->
-        console.debug "°°° SearchViewController::onKeyUp: #{e}"
+        console.debug "°°° SearchController::onKeyUp: #{e}"
 
         value = field.getValue()
         if value and value isnt @memo
@@ -21,7 +24,7 @@ Ext.define 'App.view.search.SearchController',
             @store.reload()
 
     onClearClick: (btn) ->
-        console.debug "°°° SearchViewController::onClearClick: #{btn}"
+        console.debug "°°° SearchController::onClearClick: #{btn}"
         btn.up().down("textfield").setValue("")
         delete @store.proxy.extraParams.q
         @store.reload()

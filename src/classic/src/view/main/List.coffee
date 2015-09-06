@@ -4,6 +4,7 @@ Ext.define 'App.view.main.List',
 
     store: "Search"
     reference: 'contentgrid'
+    controller: 'searchcontroller'
     title: "Live Search"
 
     stateId: "plone-contents-grid"
@@ -69,13 +70,6 @@ Ext.define 'App.view.main.List',
                 text: 'Type'
                 dataIndex: 'portal_type'
                 width: 100
-            ,
-                text: 'Created'
-                dataIndex: 'created'
-                width: 100
-                renderer : (value, metaData, record, rowIdx, colIdx, store, view) ->
-                    renderer = Ext.util.Format.dateRenderer 'd-m-Y'
-                    return renderer value
             ]
 
         @callParent arguments
