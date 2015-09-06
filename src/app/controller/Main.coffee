@@ -19,8 +19,47 @@ Ext.define 'App.controller.Main',
             success: @onCurrentUserLoaded
             failure: @onCurrentUserLoadFailure
 
+        # load the API Version
+        Ext.Ajax.request
+            url: "#{AppConfig.plone_api_url}/version"
+            scope: @
+            method: "GET"
+            callback: @onAPIVersionLoaded
+
+        @on "versionmismatch", @onVersionMismatch, @
+
+
     ###* Even Handler
     ###
+    onVersionMismatch: (current, needed) ->
+        # API Version incompatible
+        console.debug "°°° MainController::onVersionMismatch"
+
+        # Display error message
+        Ext.Msg.show
+            title: "Incompatible API Version"
+            msg: """<p>Plone Explorer needs at least API version #{needed}</p>
+            <p>Please update plone.jsonapi.routes to the latest version from
+            <a href="https://pypi.python.org/pypi/plone.jsonapi.routes"
+               target="_blank">
+              https://pypi.python.org/pypi/plone.jsonapi.routes
+            </a><p>"""
+            buttons: Ext.Msg.OK
+            icon: Ext.Msg.WARNING
+
+    onAPIVersionLoaded: (options, success, response) ->
+        data = Ext.JSON.decode response.responseText
+        current = data.version or "0.0.0"
+        needed = AppConfig.config.requirements.api
+        version = current.split "."
+
+        # handle old version scheme with two numbers (all incompatible)
+        if version.length < 3
+            @fireEvent "versionmismatch", current, needed
+        if version[1] < 8
+            @fireEvent "versionmismatch", current, needed
+        if version[2] < 1
+            @fireEvent "versionmismatch", current, needed
 
     onCurrentUserLoaded: (response, opts) ->
         # Loading succeeded

@@ -8,7 +8,6 @@ Ext.define 'App.view.main.Main',
         'Ext.tree.Panel'
         'Ext.window.MessageBox'
         'Ext.ux.statusbar.StatusBar'
-        'Ext.Promise'
 
         'App.view.main.MainController'
         'App.view.main.MainModel'

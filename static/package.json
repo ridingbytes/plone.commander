@@ -5,6 +5,9 @@
   "description": "Cross Platform Application for Plone",
   "license": "MIT",
   "main": "main.js",
+  "requirements": {
+    "api": "0.8.1"
+  },
   "settings": [
     {
       "key": "url",
