@@ -2,23 +2,17 @@
 Plone Commander
 ===============
 
-`Plone Commander` is a cross platform web application based on Electron_ and ExtJS_.
-It communicates with Plone_ through plone.jsonapi.routes_.
-
-
-View it in Action
-=================
-
-YouTube Screencast: https://youtu.be/h9Bc37_eutE
-
 :Version: 0.1.1
 :Requirements: plone.jsonapi.routes >= 0.8.3
+
+`Plone Commander` is a cross platform web application based on Electron_ and ExtJS_.
+It communicates with Plone_ through plone.jsonapi.routes_.
 
 
 See it in Action
 ================
 
-https://www.youtube.com/watch?v=h9Bc37_eutE
+YouTube Screencast: https://youtu.be/h9Bc37_eutE
 
 
 Prerequisites
