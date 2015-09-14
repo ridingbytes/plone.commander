@@ -89,7 +89,7 @@ Ext.define  "App.view.tree.Tree",
                     getSortParam: ->
                         return "state"
                     renderer: (value, meta, record, rowIndex, colIndex, store, view) ->
-                        status = record.data.state
+                        status = record.data.workflow?.status
                         if not status? then return
                         if UserService.isAnonymous() then return status
                         #meta.tdAttr = 'data-qtip="Click to change the status"'

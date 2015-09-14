@@ -1,12 +1,12 @@
 {
   "name": "plone.commander",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "repository": "https://github.com/ridingbytes/plone.commander",
   "description": "Cross Platform Application for Plone",
   "license": "MIT",
   "main": "main.js",
   "requirements": {
-    "api": "0.8.1"
+    "api": "0.8.3"
   },
   "settings": [
     {

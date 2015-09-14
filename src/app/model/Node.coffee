@@ -57,7 +57,7 @@ Ext.define  "App.model.Node",
         name: "transition"
         type: "string"
     ,
-        name: "workflow_info"
+        name: "workflow"
     ]
 
 
@@ -82,7 +82,7 @@ Ext.define  "App.model.Node",
         return @get "path"
 
     getTransitions: ->
-        wf = @get "workflow_info"
+        wf = @get "workflow"
         console.debug "Get Workflow Transitions for #{@get 'title'}"
         return wf.transitions
 
@@ -110,6 +110,7 @@ Ext.define  "App.model.Node",
         type: "ploneproxy"
         extraParams:
             children: yes
+            workflow: yes
         reader:
             rootProperty: "children"
             typeProperty: "portal_type"
